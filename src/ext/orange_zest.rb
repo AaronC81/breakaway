@@ -21,4 +21,14 @@ module OrangeZest
             end.new
         end
     end
+
+    class Animation
+        # Create a placeholder `Animation`, with a single frame of static colour in a chosen size.
+        def self.placeholder(w, h, c)
+            image = Gosu.render(w, h) do
+                Gosu.draw_rect(0, 0, w, h, c)
+            end
+            Animation.static(image)
+        end
+    end
 end
