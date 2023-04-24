@@ -1,6 +1,8 @@
+require_relative 'soul'
+
 module GosuGameJam4
     class Player < OZ::Entity
-        attr_accessor :velocity
+        attr_accessor :velocity, :soul
 
         def initialize(**kw)
             super(
@@ -33,12 +35,26 @@ module GosuGameJam4
                 velocity.y += 0.5
             end
 
-            if OZ::TriggerCondition.watch(Gosu.button_down?(Gosu::KB_SPACE)) == :on
+            if OZ::TriggerCondition.watch(Gosu.button_down?(Gosu::KB_UP)) == :on
                 # TODO: shouldn't be allowed in the air
-                self.velocity.y = -12
+                self.velocity.y = -7
             end
 
             self.position += velocity
+
+            if OZ::TriggerCondition.watch(Gosu.button_down?(Gosu::KB_SPACE)) == :on
+                if @soul                    
+                    self.position = @soul.position
+                    self.velocity = @soul.velocity
+
+                    @soul.unregister
+                    @soul = nil
+                else
+                    @soul = Soul.new(position: self.position.clone)
+                    @soul.velocity = self.velocity.clone
+                    @soul.register
+                end
+            end
         end
 
         def rising?; velocity.y < 0; end
@@ -47,7 +63,7 @@ module GosuGameJam4
         def falling?; velocity.y > 0; end
 
         def movement_speed
-            10
+            5
         end
 
         # Modified from Pet Peeve's `GravityEntity`: https://github.com/AaronC81/pet-peeve/blob/main/src/engine/gravity_entity.rb
