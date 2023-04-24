@@ -17,7 +17,7 @@ module GosuGameJam4
                     normal: OZ::Animation.static(images[0]),
                     jump: OZ::Animation.static(images[6]),
                     fall: OZ::Animation.static(images[12]),
-                    walk: OZ::Animation.new(images[18..24], 4),
+                    walk: OZ::Animation.new(images[18...24], 4),
                 },
                 **kw
             )
@@ -102,10 +102,10 @@ module GosuGameJam4
                 Gosu.draw_line(
                     center_position.x,
                     center_position.y,
-                    Gosu::Color::GREEN,
+                    Gosu::Color::FUCHSIA,
                     soul.center_position.x,
                     soul.center_position.y,
-                    Gosu::Color::GREEN,
+                    Gosu::Color::FUCHSIA,
                 )
             end
         end
@@ -120,7 +120,8 @@ module GosuGameJam4
             # Check line-of-sight between us and soul
             line = center_position.line_to(soul.center_position)
             line.each do |pt|
-                return false if Game.solids.any? { |solid| solid.bounding_box.point_inside?(pt) }
+                # Passing through floor is fine, walls are not
+                return false if Game::WALLS.items.any? { |solid| solid.bounding_box.point_inside?(pt) }
             end
 
             true

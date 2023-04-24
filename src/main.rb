@@ -38,6 +38,7 @@ module GosuGameJam4
 
             FLOORS.register
             Floor.new(position: OZ::Point.new(50, 500), width: 600, height: 50).register(FLOORS)
+            Floor.new(position: OZ::Point.new(150, 700), width: 400, height: 50).register(FLOORS)
 
             WALLS.register
             Wall.new(position: OZ::Point.new(300, 400), width: 20, height: 200).register(WALLS)
