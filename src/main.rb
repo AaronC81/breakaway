@@ -17,6 +17,10 @@ module GosuGameJam4
         FLOORS = OZ::Group.new
         WALLS = OZ::Group.new
 
+        def self.solids
+            Game::FLOORS.items + Game::WALLS.items
+        end
+
         def initialize
             super WIDTH, HEIGHT
 

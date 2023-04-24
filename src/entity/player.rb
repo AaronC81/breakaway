@@ -55,18 +55,29 @@ module GosuGameJam4
             self.position += velocity
 
             if OZ::TriggerCondition.watch(Gosu.button_down?(Gosu::KB_SPACE)) == :on
-                if @soul                    
+                if @soul && can_rejoin?
                     self.position = @soul.position
                     self.velocity = @soul.velocity
 
                     @soul.unregister
                     @soul = nil
-                else
+                elsif !@soul
                     @soul = Soul.new(position: self.position.clone)
                     @soul.velocity = self.velocity.clone
                     @soul.register
                 end
             end
+        end
+
+        def can_rejoin?
+            # If there's no soul, we can't rejoin to one!
+            return unless soul
+
+            # Make sure the soul isn't inside a wall or floor
+            return false if Game.solids.any? { |solid| solid.bounding_box.overlaps?(soul.bounding_box) }
+
+            # TODO: line-of-sight
+            true
         end
 
         def rising?; velocity.y < 0; end
@@ -83,7 +94,7 @@ module GosuGameJam4
         def left_floor_collision_scaling; 1 end
         def right_floor_collision_scaling; 1 end      
         def on_floor?
-        (Game::FLOORS.items + Game::WALLS.items).any? do |floor|
+            Game.solids.any? do |floor|
                 v_dist = (position.y + bounding_box.height) - floor.position.y
                 if v_dist >= 0 && v_dist < FLOOR_CLIP_THRESHOLD \
                     && !rising? \
