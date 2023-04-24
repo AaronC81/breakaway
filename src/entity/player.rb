@@ -69,6 +69,21 @@ module GosuGameJam4
             end
         end
 
+        def draw
+            super
+
+            if can_rejoin?
+                Gosu.draw_line(
+                    center_position.x,
+                    center_position.y,
+                    Gosu::Color::GREEN,
+                    soul.center_position.x,
+                    soul.center_position.y,
+                    Gosu::Color::GREEN,
+                )
+            end
+        end
+
         def can_rejoin?
             # If there's no soul, we can't rejoin to one!
             return unless soul
@@ -76,7 +91,12 @@ module GosuGameJam4
             # Make sure the soul isn't inside a wall or floor
             return false if Game.solids.any? { |solid| solid.bounding_box.overlaps?(soul.bounding_box) }
 
-            # TODO: line-of-sight
+            # Check line-of-sight between us and soul
+            line = center_position.line_to(soul.center_position)
+            line.each do |pt|
+                return false if Game.solids.any? { |solid| solid.bounding_box.point_inside?(pt) }
+            end
+
             true
         end
 
