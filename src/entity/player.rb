@@ -36,8 +36,7 @@ module GosuGameJam4
             end
 
             if OZ::TriggerCondition.watch(Gosu.button_down?(Gosu::KB_UP)) == :on
-                # TODO: shouldn't be allowed in the air
-                self.velocity.y = -7
+                self.velocity.y = -7 unless jumping? || falling?
             end
 
             self.position += velocity
