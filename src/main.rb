@@ -13,6 +13,9 @@ module GosuGameJam4
     WIDTH = 1600
     HEIGHT = 900
 
+    ASEPRITE_EXPORT_SCALE = 2
+    RES_DIR = File.join(__dir__, "..", "res")
+
     class Game < OZ::Window
         FLOORS = OZ::Group.new
         WALLS = OZ::Group.new
@@ -23,6 +26,8 @@ module GosuGameJam4
 
         def initialize
             super WIDTH, HEIGHT
+
+            Gosu.enable_undocumented_retrofication
 
             # Add a component to clear the screen
             OZ::Component

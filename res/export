@@ -1,0 +1,8 @@
+#!/bin/bash
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+pushd $SCRIPT_DIR
+
+/Applications/Aseprite.app/Contents/MacOS/aseprite -b player.aseprite --scale 2 --sheet player.png --split-tags 
+
+popd $SCRIPT_DIR

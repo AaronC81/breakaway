@@ -3,9 +3,16 @@ module GosuGameJam4
         attr_accessor :velocity
 
         def initialize(**kw)
+            images = Gosu::Image.load_tiles(
+                File.join(RES_DIR, "player.png"),
+                16 * ASEPRITE_EXPORT_SCALE,
+                32 * ASEPRITE_EXPORT_SCALE,
+                retro: true,
+            )
+
             super(
                 animations: {
-                    normal: OZ::Animation.placeholder(50, 50, Gosu::Color::GREEN)
+                    normal: OZ::Animation.new(images[24..32], 2)
                 },
                 **kw
             )
@@ -15,7 +22,7 @@ module GosuGameJam4
 
         def update
             super
-            
+
             self.position += @velocity
         end
     end

@@ -5,9 +5,19 @@ module GosuGameJam4
         attr_accessor :velocity, :soul
 
         def initialize(**kw)
+            images = Gosu::Image.load_tiles(
+                File.join(RES_DIR, "player.png"),
+                16 * ASEPRITE_EXPORT_SCALE,
+                32 * ASEPRITE_EXPORT_SCALE,
+                retro: true,
+            )
+
             super(
                 animations: {
-                    normal: OZ::Animation.placeholder(50, 50, Gosu::Color::RED)
+                    normal: OZ::Animation.static(images[0]),
+                    jump: OZ::Animation.static(images[6]),
+                    fall: OZ::Animation.static(images[12]),
+                    walk: OZ::Animation.new(images[18..24], 4),
                 },
                 **kw
             )
@@ -50,6 +60,22 @@ module GosuGameJam4
                     velocity.x = 0
                     break
                 end
+            end
+
+            # Set animation
+            check_mirror_x = true
+            if jumping?
+                self.animation = :jump
+            elsif falling?
+                self.animation = :fall
+            elsif velocity.x != 0
+                self.animation = :walk
+            else
+                self.animation = :normal
+                check_mirror_x = false
+            end
+            if check_mirror_x
+                self.mirror_x = velocity.x < 0
             end
 
             self.position += velocity
