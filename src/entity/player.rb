@@ -32,11 +32,24 @@ module GosuGameJam4
             if on_floor?
                 velocity.y = 0
             else
-                velocity.y += 0.5
+                velocity.y += 0.3
             end
 
             if OZ::TriggerCondition.watch(Gosu.button_down?(Gosu::KB_UP)) == :on
                 self.velocity.y = -7 unless jumping? || falling?
+            end
+            
+            # Check if we're going to hit a wall by moving in our velocity
+            # TODO: assumes there'll never be a case where you can hit your head on a wall
+            # (If we put a floor at the top of every one, maybe there isn't?)
+            projected_box = bounding_box.clone
+            projected_box.origin += velocity
+            Game::WALLS.items.each do |wall|
+                if projected_box.overlaps?(wall.bounding_box)
+                    # Yep - set X velocity to 0
+                    velocity.x = 0
+                    break
+                end
             end
 
             self.position += velocity
@@ -70,7 +83,7 @@ module GosuGameJam4
         def left_floor_collision_scaling; 1 end
         def right_floor_collision_scaling; 1 end      
         def on_floor?
-            Game::FLOORS.items.any? do |floor|
+        (Game::FLOORS.items + Game::WALLS.items).any? do |floor|
                 v_dist = (position.y + bounding_box.height) - floor.position.y
                 if v_dist >= 0 && v_dist < FLOOR_CLIP_THRESHOLD \
                     && !rising? \

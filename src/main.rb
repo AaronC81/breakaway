@@ -5,6 +5,8 @@ OZ = OrangeZest
 require_relative 'ext/orange_zest'
 
 require_relative 'entity/player'
+require_relative 'entity/soul'
+require_relative 'entity/wall'
 require_relative 'entity/floor'
 
 module GosuGameJam4
@@ -13,6 +15,7 @@ module GosuGameJam4
 
     class Game < OZ::Window
         FLOORS = OZ::Group.new
+        WALLS = OZ::Group.new
 
         def initialize
             super WIDTH, HEIGHT
@@ -25,7 +28,10 @@ module GosuGameJam4
             Player.new(position: OZ::Point.new(100, 100)).register
 
             FLOORS.register
-            Floor.new(position: OZ::Point.new(50, 500), width: 300, height: 50).register(FLOORS)
+            Floor.new(position: OZ::Point.new(50, 500), width: 600, height: 50).register(FLOORS)
+
+            WALLS.register
+            Wall.new(position: OZ::Point.new(300, 400), width: 20, height: 200).register(WALLS)
         end
     end
 end
