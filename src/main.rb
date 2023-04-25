@@ -21,7 +21,11 @@ module GosuGameJam4
 
     ASEPRITE_EXPORT_SCALE = 2
     RES_DIR = File.join(__dir__, "..", "res")
+end
 
+require_relative 'sounds'
+
+module GosuGameJam4
     class Game < OZ::Window
         PLAYERS = OZ::Group.new
         FLOORS = OZ::Group.new

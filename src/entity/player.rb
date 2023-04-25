@@ -66,6 +66,7 @@ module GosuGameJam4
 
             if OZ::TriggerCondition.watch(Gosu.button_down?(Gosu::KB_UP)) == :on
                 self.velocity.y = -7 unless jumping? || falling?
+                Sounds::JUMP.play
             end
             
             # Check if we're going to hit a wall by moving in our velocity
@@ -106,10 +107,14 @@ module GosuGameJam4
 
                     @soul.unregister
                     @soul = nil
+
+                    Sounds::JOIN.play
                 elsif !@soul
                     @soul = Soul.new(position: self.position.clone)
                     @soul.velocity = self.velocity.clone
                     @soul.register(Game::PLAYERS)
+
+                    Sounds::SPLIT.play
                 end
             end
         end
