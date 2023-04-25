@@ -114,15 +114,18 @@ module GosuGameJam4
         def draw
             super
 
-            if can_rejoin?
-                Gosu.draw_line(
-                    center_position.x,
-                    center_position.y,
-                    Gosu::Color::FUCHSIA,
-                    soul.center_position.x,
-                    soul.center_position.y,
-                    Gosu::Color::FUCHSIA,
-                )
+            line = can_rejoin?
+            if line
+                line.each do |point|
+                    if rand < 0.02
+                        LinkParticle.new(
+                            position: OZ::Point.new(point.x - 2 + rand(-5..5), point.y - 2 + rand(-5..5), 1000)
+                        )
+                            .register(Game::LINK_PARTICLES)
+                    end
+                end
+            else
+                Game::LINK_PARTICLES.items.clear
             end
         end
 
@@ -140,7 +143,8 @@ module GosuGameJam4
                 return false if Game::WALLS.items.any? { |solid| solid.bounding_box.point_inside?(pt) }
             end
 
-            true
+            # The line is truthy, so we can return that for other stuff to use
+            line
         end
 
         def rising?; velocity.y < 0; end

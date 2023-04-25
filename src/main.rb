@@ -9,6 +9,7 @@ require_relative 'entity/soul'
 require_relative 'entity/wall'
 require_relative 'entity/floor'
 require_relative 'entity/flag'
+require_relative 'entity/link_particle'
 
 require_relative 'levels'
 
@@ -24,6 +25,7 @@ module GosuGameJam4
         FLOORS = OZ::Group.new
         WALLS = OZ::Group.new
         OBJECTIVES = OZ::Group.new
+        LINK_PARTICLES = OZ::Group.new
 
         class << self
             attr_accessor :current_level
@@ -42,6 +44,7 @@ module GosuGameJam4
             FLOORS.items.clear
             WALLS.items.clear
             OBJECTIVES.items.clear
+            LINK_PARTICLES.items.clear
 
             Game.current_level.build.()
         end
@@ -67,6 +70,7 @@ module GosuGameJam4
             FLOORS.register
             WALLS.register
             OBJECTIVES.register
+            LINK_PARTICLES.register
 
             starting_level_index = ENV['GGJ4_STARTING_LEVEL']&.to_i || 0
             Game.current_level = LEVELS[starting_level_index]

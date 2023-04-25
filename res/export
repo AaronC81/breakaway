@@ -7,5 +7,6 @@ ASEPRITE=/Applications/Aseprite.app/Contents/MacOS/aseprite
 
 $ASEPRITE -b player.aseprite --sheet player.png --scale 2 --split-tags
 $ASEPRITE -b flag.aseprite --sheet flag.png --scale 2 --split-tags
+$ASEPRITE -b link.aseprite --sheet link.png --scale 2 --split-tags
 
 popd $SCRIPT_DIR
