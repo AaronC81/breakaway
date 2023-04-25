@@ -68,7 +68,8 @@ module GosuGameJam4
             WALLS.register
             OBJECTIVES.register
 
-            Game.current_level = LEVELS[0]
+            starting_level_index = ENV['GGJ4_STARTING_LEVEL']&.to_i || 0
+            Game.current_level = LEVELS[starting_level_index]
             Game.reload_level
         end
     end
