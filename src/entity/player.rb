@@ -28,6 +28,11 @@ module GosuGameJam4
         def update
             super
 
+            unless on_screen?
+                # TODO: feedback for this
+                Game.reload_level
+            end
+
             left = Gosu.button_down?(Gosu::KB_LEFT)
             right = Gosu.button_down?(Gosu::KB_RIGHT)
             self.velocity.x = 
@@ -90,7 +95,7 @@ module GosuGameJam4
                 elsif !@soul
                     @soul = Soul.new(position: self.position.clone)
                     @soul.velocity = self.velocity.clone
-                    @soul.register
+                    @soul.register(Game::PLAYERS)
                 end
             end
         end
@@ -131,6 +136,13 @@ module GosuGameJam4
         alias jumping? rising?
         
         def falling?; velocity.y > 0; end
+
+        def on_screen?
+            screen = OZ::Box.new(OZ::Point.new(0, 0), WIDTH, HEIGHT)
+
+            screen.point_inside?(center_position) &&
+                (soul ? screen.point_inside?(soul.center_position) : true)
+        end
 
         def movement_speed
             5
