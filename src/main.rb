@@ -60,7 +60,7 @@ module GosuGameJam4
 
             # Add a component to clear the screen
             OZ::Component
-                .anon(draw: ->{ Gosu.draw_rect(0, 0, WIDTH, HEIGHT, Gosu::Color::WHITE) })
+                .anon(draw: ->{ Gosu.draw_rect(0, 0, WIDTH, HEIGHT, Gosu::Color::rgb(33, 11, 32)) })
                 .register
 
             PLAYERS.register
