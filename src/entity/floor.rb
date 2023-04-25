@@ -8,5 +8,9 @@ module GosuGameJam4
                 **kw
             )
         end
+
+        def self.register_new(x:, y:, width:, height:)
+            new(position: OZ::Point.new(x, y), width: width, height: height).register(Game::FLOORS)
+        end
     end
 end
