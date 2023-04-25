@@ -37,12 +37,14 @@ module GosuGameJam4
             return unless enabled?
 
             unless on_screen?
-                # TODO: feedback for this
+                # TODO: visual feedback for this
+                Sounds::DIE.play
                 Game.reload_level
             end
 
             if Game.flag
                 if Game.flag.bounding_box.overlaps?(self.bounding_box)
+                    Sounds::WIN.play
                     Game.next_level
                 end
             end
@@ -65,8 +67,10 @@ module GosuGameJam4
             end
 
             if OZ::TriggerCondition.watch(Gosu.button_down?(Gosu::KB_UP)) == :on
-                self.velocity.y = -7 unless jumping? || falling?
-                Sounds::JUMP.play
+                unless jumping? || falling?
+                    self.velocity.y = -7 
+                    Sounds::JUMP.play
+                end
             end
             
             # Check if we're going to hit a wall by moving in our velocity
