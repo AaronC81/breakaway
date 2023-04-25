@@ -11,6 +11,8 @@ require_relative 'entity/floor'
 require_relative 'entity/flag'
 require_relative 'entity/link_particle'
 
+require_relative 'component/transition'
+
 require_relative 'levels'
 
 module GosuGameJam4
@@ -27,6 +29,8 @@ module GosuGameJam4
         OBJECTIVES = OZ::Group.new
         LINK_PARTICLES = OZ::Group.new
 
+        TRANSITION = Transition.new
+
         class << self
             attr_accessor :current_level
         end
@@ -39,14 +43,23 @@ module GosuGameJam4
             Game::OBJECTIVES.items.find { |o| o.is_a?(Flag) }
         end
 
-        def self.reload_level
-            PLAYERS.items.clear
-            FLOORS.items.clear
-            WALLS.items.clear
-            OBJECTIVES.items.clear
-            LINK_PARTICLES.items.clear
+        def self.player
+            Game::PLAYERS.items.find { |o| o.is_a?(Player) }
+        end
 
-            Game.current_level.build.()
+        def self.reload_level
+            player&.enabled = false
+            TRANSITION.fade_out(20) do
+                PLAYERS.items.clear
+                FLOORS.items.clear
+                WALLS.items.clear
+                OBJECTIVES.items.clear
+                LINK_PARTICLES.items.clear
+
+                Game.current_level.build.()
+
+                TRANSITION.fade_in(20)
+            end
         end
 
         def self.next_level
@@ -71,6 +84,8 @@ module GosuGameJam4
             WALLS.register
             OBJECTIVES.register
             LINK_PARTICLES.register
+
+            TRANSITION.register
 
             starting_level_index = ENV['GGJ4_STARTING_LEVEL']&.to_i || 0
             Game.current_level = LEVELS[starting_level_index]

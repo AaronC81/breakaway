@@ -2,7 +2,8 @@ require_relative 'soul'
 
 module GosuGameJam4
     class Player < OZ::Entity
-        attr_accessor :velocity, :soul
+        attr_accessor :velocity, :soul, :enabled
+        alias enabled? enabled
 
         def initialize(**kw)
             images = Gosu::Image.load_tiles(
@@ -22,6 +23,7 @@ module GosuGameJam4
                 **kw
             )
 
+            @enabled = true
             @velocity = OZ::Point.new(0, 0)
         end
 
@@ -32,6 +34,7 @@ module GosuGameJam4
 
         def update
             super
+            return unless enabled?
 
             unless on_screen?
                 # TODO: feedback for this
