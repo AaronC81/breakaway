@@ -25,12 +25,23 @@ module GosuGameJam4
             @velocity = OZ::Point.new(0, 0)
         end
 
+        def self.register_new(x:, y:)
+            # Be helpful and offset Y position by height
+            new(position: OZ::Point.new(x, y - 32 * ASEPRITE_EXPORT_SCALE)).register(Game::PLAYERS)
+        end
+
         def update
             super
 
             unless on_screen?
                 # TODO: feedback for this
                 Game.reload_level
+            end
+
+            if Game.flag
+                if Game.flag.bounding_box.overlaps?(self.bounding_box)
+                    Game.next_level
+                end
             end
 
             left = Gosu.button_down?(Gosu::KB_LEFT)

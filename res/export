@@ -3,6 +3,9 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 pushd $SCRIPT_DIR
 
-/Applications/Aseprite.app/Contents/MacOS/aseprite -b player.aseprite --scale 2 --sheet player.png --split-tags 
+ASEPRITE=/Applications/Aseprite.app/Contents/MacOS/aseprite
+
+$ASEPRITE -b player.aseprite --sheet player.png --scale 2 --split-tags
+$ASEPRITE -b flag.aseprite --sheet flag.png --scale 2 --split-tags
 
 popd $SCRIPT_DIR
