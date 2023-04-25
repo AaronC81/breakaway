@@ -23,7 +23,8 @@ module GosuGameJam4
         def update
             super
 
-            self.position += @velocity
+            self.mirror_x = velocity.x < 0
+            self.position += velocity
         end
     end
 end
