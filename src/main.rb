@@ -4,6 +4,15 @@ require 'orange_zest'
 OZ = OrangeZest
 require_relative 'ext/orange_zest'
 
+module GosuGameJam4
+    WIDTH = 1600
+    HEIGHT = 900
+
+    # Some other classes need these constants to load
+    ASEPRITE_EXPORT_SCALE = 2
+    RES_DIR = File.join(__dir__, "..", "res")
+end
+
 require_relative 'entity/player'
 require_relative 'entity/soul'
 require_relative 'entity/wall'
@@ -15,14 +24,6 @@ require_relative 'component/transition'
 
 require_relative 'levels'
 require_relative 'save'
-
-module GosuGameJam4
-    WIDTH = 1600
-    HEIGHT = 900
-
-    ASEPRITE_EXPORT_SCALE = 2
-    RES_DIR = File.join(__dir__, "..", "res")
-end
 
 require_relative 'sounds'
 

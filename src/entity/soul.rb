@@ -2,17 +2,17 @@ module GosuGameJam4
     class Soul < OZ::Entity
         attr_accessor :velocity
 
-        def initialize(**kw)
-            images = Gosu::Image.load_tiles(
-                File.join(RES_DIR, "player.png"),
-                16 * ASEPRITE_EXPORT_SCALE,
-                32 * ASEPRITE_EXPORT_SCALE,
-                retro: true,
-            )
+        IMAGES = Gosu::Image.load_tiles(
+            File.join(RES_DIR, "player.png"),
+            16 * ASEPRITE_EXPORT_SCALE,
+            32 * ASEPRITE_EXPORT_SCALE,
+            retro: true,
+        )
 
+        def initialize(**kw)
             super(
                 animations: {
-                    normal: OZ::Animation.new(images[24..32], 2)
+                    normal: OZ::Animation.new(IMAGES[24..32], 2)
                 },
                 **kw
             )

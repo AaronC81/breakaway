@@ -1,16 +1,16 @@
 module GosuGameJam4
     class Flag < OZ::Entity
-        def initialize(**kw)
-            images = Gosu::Image.load_tiles(
-                File.join(RES_DIR, "flag.png"),
-                32 * ASEPRITE_EXPORT_SCALE,
-                32 * ASEPRITE_EXPORT_SCALE,
-                retro: true,
-            )
+        IMAGES = Gosu::Image.load_tiles(
+            File.join(RES_DIR, "flag.png"),
+            32 * ASEPRITE_EXPORT_SCALE,
+            32 * ASEPRITE_EXPORT_SCALE,
+            retro: true,
+        )
 
+        def initialize(**kw)
             super(
                 animations: {
-                    normal: OZ::Animation.new(images, 8)
+                    normal: OZ::Animation.new(IMAGES, 8)
                 },
                 **kw
             )

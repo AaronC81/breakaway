@@ -5,20 +5,20 @@ module GosuGameJam4
         attr_accessor :velocity, :soul, :enabled
         alias enabled? enabled
 
-        def initialize(**kw)
-            images = Gosu::Image.load_tiles(
-                File.join(RES_DIR, "player.png"),
-                16 * ASEPRITE_EXPORT_SCALE,
-                32 * ASEPRITE_EXPORT_SCALE,
-                retro: true,
-            )
+        IMAGES = Gosu::Image.load_tiles(
+            File.join(RES_DIR, "player.png"),
+            16 * ASEPRITE_EXPORT_SCALE,
+            32 * ASEPRITE_EXPORT_SCALE,
+            retro: true,
+        )
 
+        def initialize(**kw)
             super(
                 animations: {
-                    normal: OZ::Animation.static(images[0]),
-                    jump: OZ::Animation.static(images[6]),
-                    fall: OZ::Animation.static(images[12]),
-                    walk: OZ::Animation.new(images[18...24], 4),
+                    normal: OZ::Animation.static(IMAGES[0]),
+                    jump: OZ::Animation.static(IMAGES[6]),
+                    fall: OZ::Animation.static(IMAGES[12]),
+                    walk: OZ::Animation.new(IMAGES[18...24], 4),
                 },
                 **kw
             )
