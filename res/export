@@ -11,4 +11,6 @@ $ASEPRITE -b link.aseprite --sheet link.png --scale 2 --split-tags
 $ASEPRITE -b platform.aseprite --sheet platform.png --scale 2 --split-tags
 $ASEPRITE -b wall.aseprite --sheet wall.png --scale 2 --split-tags
 
+$ASEPRITE -b logo.aseprite --sheet logo.png --scale 2
+
 popd $SCRIPT_DIR
