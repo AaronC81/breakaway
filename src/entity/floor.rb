@@ -14,12 +14,10 @@ module GosuGameJam4
         RIGHT = IMAGES[40]
 
         def initialize(width:, height:, **kw)
-            super(
-                animations: {
-                    normal: OZ::Animation.placeholder(width, height, Gosu::Color::BLUE)
-                },
-                **kw
-            )
+            super(animations: {}, **kw)
+
+            @width = width
+            @height = height
 
             # Generate pieces to fill in the width of the platform
             raise "platform length must be multiple of #{PIECE_WIDTH}" unless width % PIECE_WIDTH == 0
@@ -34,6 +32,10 @@ module GosuGameJam4
             @pieces.each.with_index do |piece, i|
                 piece.draw(position.x + i * PIECE_WIDTH, position.y)
             end
+        end
+
+        def bounding_box
+            OZ::Box.new(position.clone, @width, @height)
         end
 
         def self.register_new(x:, y:, width:, height:)

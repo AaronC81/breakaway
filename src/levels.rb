@@ -93,7 +93,7 @@ module GosuGameJam4
             Player.register_new(x: 500, y: 400)
             Floor.register_new(x: 200, y: 400, width: 400, height: 50)
             Floor.register_new(x: 800, y: 400, width: 600, height: 50)
-            Wall.register_new(x: 700, y: 0, width: 100, height: 450)
+            Wall.register_new(x: 700, y: -10, width: 100, height: 460)
             Flag.register_new(x: 1250, y: 400)
         end),
     ]

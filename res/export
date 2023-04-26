@@ -9,5 +9,6 @@ $ASEPRITE -b player.aseprite --sheet player.png --scale 2 --split-tags
 $ASEPRITE -b flag.aseprite --sheet flag.png --scale 2 --split-tags
 $ASEPRITE -b link.aseprite --sheet link.png --scale 2 --split-tags
 $ASEPRITE -b platform.aseprite --sheet platform.png --scale 2 --split-tags
+$ASEPRITE -b wall.aseprite --sheet wall.png --scale 2 --split-tags
 
 popd $SCRIPT_DIR
