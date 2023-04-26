@@ -14,6 +14,7 @@ require_relative 'entity/link_particle'
 require_relative 'component/transition'
 
 require_relative 'levels'
+require_relative 'save'
 
 module GosuGameJam4
     WIDTH = 1600
@@ -90,6 +91,8 @@ module GosuGameJam4
             LINK_PARTICLES.register
 
             TRANSITION.register
+
+            Save.load
 
             starting_level_index = ENV['GGJ4_STARTING_LEVEL']&.to_i || 0
             Game.current_level = LEVELS[starting_level_index]
