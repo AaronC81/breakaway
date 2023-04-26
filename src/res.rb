@@ -6,4 +6,8 @@ module GosuGameJam4
         WIN = Gosu::Sample.new(File.join(RES_DIR, "sample", "win.wav"))
         DIE = Gosu::Sample.new(File.join(RES_DIR, "sample", "die.wav"))
     end
+
+    module Fonts
+        TUTORIAL = Gosu::Font.new(30, name: File.join(RES_DIR, "Silkscreen.ttf"))
+    end
 end

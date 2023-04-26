@@ -19,13 +19,14 @@ require_relative 'entity/wall'
 require_relative 'entity/floor'
 require_relative 'entity/flag'
 require_relative 'entity/link_particle'
+require_relative 'entity/text'
 
 require_relative 'component/transition'
 
 require_relative 'levels'
 require_relative 'save'
 
-require_relative 'sounds'
+require_relative 'res'
 
 module GosuGameJam4
     class Game < OZ::Window
@@ -34,6 +35,7 @@ module GosuGameJam4
         WALLS = OZ::Group.new
         OBJECTIVES = OZ::Group.new
         LINK_PARTICLES = OZ::Group.new
+        DECORATIONS = OZ::Group.new
 
         TRANSITION = Transition.new
 
@@ -61,6 +63,7 @@ module GosuGameJam4
                 WALLS.items.clear
                 OBJECTIVES.items.clear
                 LINK_PARTICLES.items.clear
+                DECORATIONS.items.clear
 
                 Game.current_level.build.()
 
@@ -90,6 +93,7 @@ module GosuGameJam4
             WALLS.register
             OBJECTIVES.register
             LINK_PARTICLES.register
+            DECORATIONS.register
 
             TRANSITION.register
 
