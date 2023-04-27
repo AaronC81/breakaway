@@ -21,6 +21,7 @@ require_relative 'entity/flag'
 require_relative 'entity/link_particle'
 require_relative 'entity/text'
 require_relative 'entity/button'
+require_relative 'entity/barrier'
 
 require_relative 'component/transition'
 
@@ -39,6 +40,7 @@ module GosuGameJam4
         PLAYERS = OZ::Group.new
         FLOORS = OZ::Group.new
         WALLS = OZ::Group.new
+        BARRIERS = OZ::Group.new
         OBJECTIVES = OZ::Group.new
         LINK_PARTICLES = OZ::Group.new
         DECORATIONS = OZ::Group.new
@@ -114,6 +116,7 @@ module GosuGameJam4
             PLAYERS.register(GAMEPLAY)
             FLOORS.register(GAMEPLAY)
             WALLS.register(GAMEPLAY)
+            BARRIERS.register(GAMEPLAY)
             OBJECTIVES.register(GAMEPLAY)
             LINK_PARTICLES.register(GAMEPLAY)
             DECORATIONS.register(GAMEPLAY)

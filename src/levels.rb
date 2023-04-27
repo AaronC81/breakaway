@@ -96,6 +96,16 @@ module GosuGameJam4
             Wall.register_new(x: 700, y: -10, width: 100, height: 460)
             Flag.register_new(x: 1250, y: 400)
         end),
+
+
+
+
+        Level.new(->do
+            Player.register_new(x: 500, y: 400)
+            Floor.register_new(x: 200, y: 400, width: 400, height: 50)
+
+            Barrier.register_new(x: 600, y: 300, length: 100, orientation: :vertical)
+        end),
     ]
 
     # Fill in indices

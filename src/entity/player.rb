@@ -36,11 +36,8 @@ module GosuGameJam4
             super
             return unless enabled?
 
-            unless on_screen?
-                # TODO: visual feedback for this
-                Sounds::DIE.play(Settings.sfx_volume)
-                Game.reload_level
-            end
+            die unless on_screen?
+            die if Game::BARRIERS.items.any? { |b| bounding_box.overlaps?(b.bounding_box) || soul&.bounding_box&.overlaps?(b.bounding_box) }
 
             if Game.flag
                 if Game.flag.bounding_box.overlaps?(self.bounding_box)
@@ -139,6 +136,12 @@ module GosuGameJam4
             else
                 Game::LINK_PARTICLES.items.clear
             end
+        end
+
+        def die
+            # TODO: visual feedback for this
+            Sounds::DIE.play(Settings.sfx_volume)
+            Game.reload_level
         end
 
         def can_rejoin?
