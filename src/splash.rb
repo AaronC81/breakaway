@@ -5,6 +5,8 @@ module GosuGameJam4
         def initialize
             super
 
+            Save.load
+
             OZ::Entity.new(
                 animations: {
                     normal: OZ::Animation.static(LOGO)
@@ -41,6 +43,8 @@ module GosuGameJam4
                     height: level_button_size,
                     text: (i + 1).to_s,
                     font: Fonts::LEVEL_SELECT,
+                    enabled: Save.level_unlocked?(i),
+                    completed: Save.level_beaten?(i),
                     click: ->do
                         Game.go_to_level(i) do
                             Game.close_menu

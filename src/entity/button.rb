@@ -1,8 +1,10 @@
 module GosuGameJam4
     class Button < OZ::Entity
-        attr_accessor :width, :height, :text, :click, :font
+        attr_accessor :width, :height, :text, :click, :font, :enabled, :completed
+        alias enabled? enabled
+        alias completed? completed
 
-        def initialize(width:, height:, text:, font: nil, click: nil, **kw)
+        def initialize(width:, height:, text:, font: nil, click: nil, enabled: true, completed: false, **kw)
             super(animations: {}, **kw)
 
             @width = width
@@ -10,10 +12,20 @@ module GosuGameJam4
             @text = text
             @click = click || ->{}
             @font = font || Fonts::BUTTON
+            @enabled = enabled
+            @completed = completed
         end
 
         def draw
-            c = hover? ? Gosu::Color.rgb(215, 123, 186) : Gosu::Color::WHITE
+            if enabled
+                if !hover?
+                    c = completed? ? Gosu::Color.rgb(50, 168, 82) : Gosu::Color::WHITE
+                else
+                    c = completed? ? Gosu::Color.rgb(72, 219, 112) : Gosu::Color.rgb(215, 123, 186)
+                end
+            else
+                c = Gosu::Color.rgb(100, 50, 120)
+            end
             Gosu.draw_rect(position.x, position.y, width, height, c, position.z)
 
             text_width = font.text_width(text)
@@ -23,7 +35,7 @@ module GosuGameJam4
         end
 
         def update
-            if hover? && OZ::Input.click?
+            if hover? && OZ::Input.click? && enabled?
                 OZ::Input.clear_click
                 click.()
             end

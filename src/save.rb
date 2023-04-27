@@ -10,7 +10,7 @@ module GosuGameJam4
             if File.exist?(save_file_path)
                 @@data = JSON.parse(File.read(save_file_path))
             else
-                @@data = { version: 1, levels: {} }
+                @@data = { "version" => 1, "levels" => {} }
                 save
             end
         end
@@ -20,20 +20,20 @@ module GosuGameJam4
             File.write(save_file_path, @@data.to_json)
         end
 
-        def level_beaten?(index)
-            level_data = @@data[:levels][index]
+        def self.level_beaten?(index)
+            level_data = @@data["levels"][index.to_s]
             return false unless level_data
-            level_data[:beaten]
+            level_data["beaten"]
         end
 
-        def level_unlocked?(index)
+        def self.level_unlocked?(index)
             return true if index == 0
 
             level_beaten?(index - 1)
         end
 
-        def mark_level_beaten(index)
-            @@data[:levels][index] = { beaten: true }
+        def self.mark_level_beaten(index)
+            @@data["levels"][index.to_s] = { beaten: true }
         end
 
         private

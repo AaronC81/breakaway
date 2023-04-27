@@ -79,8 +79,15 @@ module GosuGameJam4
         end
 
         def self.next_level(&block)
-            # TODO: handle out of levels
-            go_to_level(Game.current_level.index + 1, &block)
+            Save.mark_level_beaten(Game.current_level.index)
+            Save.save
+
+            next_index = Game.current_level.index + 1
+            if LEVELS[next_index].nil?
+                show_splash_screen
+            else
+                go_to_level(Game.current_level.index + 1, &block)
+            end
         end
 
         def self.go_to_level(index, &block)
@@ -112,7 +119,7 @@ module GosuGameJam4
 
             Save.load
 
-            Game.show_splash_screen
+            Game.show_splash_screen(fade: false)
         end
 
         def update
@@ -122,10 +129,22 @@ module GosuGameJam4
             OZ::Input.clear_click
         end
 
-        def self.show_splash_screen
-            Splash.new.register(MENU)
-            GAMEPLAY.enabled = false
-            MENU.enabled = true
+        def self.show_splash_screen(fade: true)
+            show = ->do
+                Splash.new.register(MENU)
+                GAMEPLAY.enabled = false
+                MENU.enabled = true
+            end
+
+            player&.enabled = false
+            if fade
+                TRANSITION.fade_out(20) do
+                    show.()
+                    TRANSITION.fade_in(20)
+                end
+            else
+                show.()
+            end
         end
 
         def self.close_menu
