@@ -76,6 +76,7 @@ module GosuGameJam4
                 PLAYERS.items.clear
                 FLOORS.items.clear
                 WALLS.items.clear
+                BARRIERS.items.clear
                 OBJECTIVES.items.clear
                 LINK_PARTICLES.items.clear
                 DECORATIONS.items.clear
