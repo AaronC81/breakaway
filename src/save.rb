@@ -40,15 +40,15 @@ module GosuGameJam4
 
         def self.save_directory
             if OS.windows?
-                File.join(Dir.home, "AppData", "Roaming", "OrangeFlashGosuGameJam4")
+                File.join(Dir.home, "AppData", "Roaming", "OrangeFlashBreakaway")
             elsif OS.linux?
-                File.join(Dir.home, ".local", "share", "OrangeFlashGosuGameJam4")
+                File.join(Dir.home, ".local", "share", "OrangeFlashBreakaway")
             elsif OS.mac?
-                File.join(Dir.home, "Library", "OrangeFlashGosuGameJam4")
+                File.join(Dir.home, "Library", "OrangeFlashBreakaway")
             else
                 # Uhh... cwd is better than nothing?
                 # (What are you playing on!?)
-                File.join(Dir.pwd,  "OrangeFlashGosuGameJam4")
+                File.join(Dir.pwd,  "OrangeFlashBreakaway")
             end
         end
 
