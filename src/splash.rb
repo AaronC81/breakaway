@@ -52,6 +52,8 @@ module GosuGameJam4
                     end,
                 ).register(self)
             end
+
+            Settings.new(position: OZ::Point.new(WIDTH - 320, HEIGHT - 120)).register(self)
         end
     end
 end

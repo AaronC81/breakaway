@@ -38,13 +38,13 @@ module GosuGameJam4
 
             unless on_screen?
                 # TODO: visual feedback for this
-                Sounds::DIE.play
+                Sounds::DIE.play(Settings.sfx_volume)
                 Game.reload_level
             end
 
             if Game.flag
                 if Game.flag.bounding_box.overlaps?(self.bounding_box)
-                    Sounds::WIN.play
+                    Sounds::WIN.play(Settings.sfx_volume)
                     Game.next_level
                 end
             end
@@ -69,7 +69,7 @@ module GosuGameJam4
             if OZ::TriggerCondition.watch(Gosu.button_down?(Gosu::KB_UP)) == :on
                 unless jumping? || falling?
                     self.velocity.y = -7 
-                    Sounds::JUMP.play
+                    Sounds::JUMP.play(Settings.sfx_volume)
                 end
             end
             
@@ -112,13 +112,13 @@ module GosuGameJam4
                     @soul.unregister
                     @soul = nil
 
-                    Sounds::JOIN.play
+                    Sounds::JOIN.play(Settings.sfx_volume)
                 elsif !@soul
                     @soul = Soul.new(position: self.position.clone)
                     @soul.velocity = self.velocity.clone
                     @soul.register(Game::PLAYERS)
 
-                    Sounds::SPLIT.play
+                    Sounds::SPLIT.play(Settings.sfx_volume)
                 end
             end
         end

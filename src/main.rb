@@ -27,6 +27,7 @@ require_relative 'component/transition'
 require_relative 'levels'
 require_relative 'save'
 require_relative 'splash'
+require_relative 'settings'
 
 require_relative 'res'
 
@@ -58,6 +59,10 @@ module GosuGameJam4
 
         def self.player
             Game::PLAYERS.items.find { |o| o.is_a?(Player) }
+        end
+
+        def self.window
+            @@window
         end
 
         def self.reload_level(&block)
@@ -97,6 +102,7 @@ module GosuGameJam4
 
         def initialize
             super WIDTH, HEIGHT
+            @@window = self
 
             Gosu.enable_undocumented_retrofication
 
