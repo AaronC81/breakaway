@@ -13,11 +13,11 @@ module GosuGameJam4
         LEFT = IMAGES[20]
         RIGHT = IMAGES[40]
 
-        def initialize(width:, height:, **kw)
+        def initialize(width:, **kw)
             super(animations: {}, **kw)
 
             @width = width
-            @height = height
+            @height = 25
 
             # Generate pieces to fill in the width of the platform
             raise "platform length must be multiple of #{PIECE_WIDTH}" unless width % PIECE_WIDTH == 0
@@ -38,8 +38,8 @@ module GosuGameJam4
             OZ::Box.new(position.clone, @width, @height)
         end
 
-        def self.register_new(x:, y:, width:, height:)
-            new(position: OZ::Point.new(x, y), width: width, height: height).register(Game::FLOORS)
+        def self.register_new(x:, y:, width:)
+            new(position: OZ::Point.new(x, y), width: width).register(Game::FLOORS)
         end
     end
 end
