@@ -13,5 +13,6 @@ $ASEPRITE -b wall.aseprite --sheet wall.png --scale 2 --split-tags
 
 $ASEPRITE -b logo.aseprite --sheet logo.png --scale 2
 $ASEPRITE -b hurt.aseprite --sheet hurt.png --scale 2
+$ASEPRITE -b barrier.aseprite --sheet barrier.png --scale 2
 
 popd $SCRIPT_DIR

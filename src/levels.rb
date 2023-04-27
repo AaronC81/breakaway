@@ -103,6 +103,7 @@ module GosuGameJam4
         # _.______________
         Level.new(->do
             Text.register_new(x: 800, y: 200, font: Fonts::TUTORIAL, text: "Barriers will kill you and your soul")
+            Text.register_new(x: 800, y: 270, font: Fonts::TUTORIAL, text: "(You can still rejoin through barriers)")
 
             Player.register_new(x: 300, y: 700)
             Floor.register_new(x: 200, y: 800, width: 1200)
@@ -119,8 +120,8 @@ module GosuGameJam4
         Level.new(->do
             Player.register_new(x: 400, y: 200)
             Floor.register_new(x: 300, y: 200, width: 1000)
-            Barrier.register_new(x: 0, y: 300, length: 1150, orientation: :horizontal)
-            Barrier.register_new(x: 1300, y: 0, length: 200, orientation: :vertical)
+            Barrier.register_new(x: -20, y: 300, length: 1200, orientation: :horizontal)
+            Barrier.register_new(x: 1300, y: -20, length: 220, orientation: :vertical)
 
             Floor.register_new(x: 1000, y: 500, width: 500)
             Barrier.register_new(x: 600, y: 600, length: 1000, orientation: :horizontal)
