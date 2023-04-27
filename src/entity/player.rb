@@ -36,8 +36,8 @@ module GosuGameJam4
             super
             return unless enabled?
 
-            die unless on_screen?
-            die if Game::BARRIERS.items.any? { |b| bounding_box.overlaps?(b.bounding_box) || soul&.bounding_box&.overlaps?(b.bounding_box) }
+            check_on_screen
+            check_hit_barrier
 
             if Game.flag
                 if Game.flag.bounding_box.overlaps?(self.bounding_box)
@@ -138,8 +138,9 @@ module GosuGameJam4
             end
         end
 
-        def die
-            # TODO: visual feedback for this
+        def die(at:)
+            HurtMarker.new(position: at).register(Game::DECORATIONS)
+
             Sounds::DIE.play(Settings.sfx_volume)
             Game.reload_level
         end
@@ -167,11 +168,21 @@ module GosuGameJam4
         
         def falling?; velocity.y > 0; end
 
-        def on_screen?
+        def check_on_screen
             screen = OZ::Box.new(OZ::Point.new(0, 0), WIDTH, HEIGHT)
 
-            screen.point_inside?(center_position) &&
-                (soul ? screen.point_inside?(soul.center_position) : true)
+            die(at: center_position) unless screen.point_inside?(center_position)
+            if soul
+                die(at: soul.center_position) unless screen.point_inside?(soul.center_position)
+            end
+        end
+
+        def check_hit_barrier
+            if Game::BARRIERS.items.any? { |b| bounding_box.overlaps?(b.bounding_box) }
+                die(at: center_position)
+            elsif soul && Game::BARRIERS.items.any? { |b| soul.bounding_box.overlaps?(b.bounding_box) }
+                die(at: soul.center_position)
+            end
         end
 
         def movement_speed

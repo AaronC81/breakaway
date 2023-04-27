@@ -22,6 +22,7 @@ require_relative 'entity/link_particle'
 require_relative 'entity/text'
 require_relative 'entity/button'
 require_relative 'entity/barrier'
+require_relative 'entity/hurt_marker'
 
 require_relative 'component/transition'
 
