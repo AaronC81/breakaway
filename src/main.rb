@@ -136,6 +136,10 @@ module GosuGameJam4
         def update
             super
 
+            if GAMEPLAY.enabled? && Gosu.button_down?(Gosu::KB_ESCAPE)
+                Game.show_splash_screen(fade: true)
+            end
+
             # TODO: OZ should do this!
             OZ::Input.clear_click
         end
