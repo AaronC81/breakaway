@@ -20,16 +20,21 @@ require_relative 'entity/floor'
 require_relative 'entity/flag'
 require_relative 'entity/link_particle'
 require_relative 'entity/text'
+require_relative 'entity/button'
 
 require_relative 'component/transition'
 
 require_relative 'levels'
 require_relative 'save'
+require_relative 'splash'
 
 require_relative 'res'
 
 module GosuGameJam4
     class Game < OZ::Window
+        GAMEPLAY = OZ::Group.new
+        MENU = OZ::Group.new
+
         PLAYERS = OZ::Group.new
         FLOORS = OZ::Group.new
         WALLS = OZ::Group.new
@@ -55,9 +60,11 @@ module GosuGameJam4
             Game::PLAYERS.items.find { |o| o.is_a?(Player) }
         end
 
-        def self.reload_level
+        def self.reload_level(&block)
             player&.enabled = false
             TRANSITION.fade_out(20) do
+                block.() if block
+
                 PLAYERS.items.clear
                 FLOORS.items.clear
                 WALLS.items.clear
@@ -71,11 +78,14 @@ module GosuGameJam4
             end
         end
 
-        def self.next_level
-            # TODO: transition
+        def self.next_level(&block)
             # TODO: handle out of levels
-            Game.current_level = LEVELS[Game.current_level.index + 1]
-            reload_level
+            go_to_level(Game.current_level.index + 1, &block)
+        end
+
+        def self.go_to_level(index, &block)
+            Game.current_level = LEVELS[index]
+            reload_level(&block)
         end
 
         def initialize
@@ -88,20 +98,40 @@ module GosuGameJam4
                 .anon(draw: ->{ Gosu.draw_rect(0, 0, WIDTH, HEIGHT, Gosu::Color::rgb(33, 11, 32)) })
                 .register
 
-            PLAYERS.register
-            FLOORS.register
-            WALLS.register
-            OBJECTIVES.register
-            LINK_PARTICLES.register
-            DECORATIONS.register
+            PLAYERS.register(GAMEPLAY)
+            FLOORS.register(GAMEPLAY)
+            WALLS.register(GAMEPLAY)
+            OBJECTIVES.register(GAMEPLAY)
+            LINK_PARTICLES.register(GAMEPLAY)
+            DECORATIONS.register(GAMEPLAY)
 
             TRANSITION.register
 
+            MENU.register
+            GAMEPLAY.register
+
             Save.load
 
-            starting_level_index = ENV['GGJ4_STARTING_LEVEL']&.to_i || 0
-            Game.current_level = LEVELS[starting_level_index]
-            Game.reload_level
+            Game.show_splash_screen
+        end
+
+        def update
+            super
+
+            # TODO: OZ should do this!
+            OZ::Input.clear_click
+        end
+
+        def self.show_splash_screen
+            Splash.new.register(MENU)
+            GAMEPLAY.enabled = false
+            MENU.enabled = true
+        end
+
+        def self.close_menu
+            MENU.items.clear
+            GAMEPLAY.enabled = true
+            MENU.enabled = false
         end
     end
 end
