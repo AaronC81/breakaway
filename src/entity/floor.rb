@@ -30,7 +30,7 @@ module GosuGameJam4
 
         def draw
             @pieces.each.with_index do |piece, i|
-                piece.draw(position.x + i * PIECE_WIDTH, position.y)
+                piece.draw(position.x + i * PIECE_WIDTH - PIECE_WIDTH / 2, position.y)
             end
         end
 
