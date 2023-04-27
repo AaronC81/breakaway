@@ -24,7 +24,6 @@ module GosuGameJam4
 
         def update
             if hover? && OZ::Input.click?
-                puts "Click!"
                 OZ::Input.clear_click
                 click.()
             end
