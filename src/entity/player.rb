@@ -133,7 +133,7 @@ module GosuGameJam4
                             .register(Game::LINK_PARTICLES)
                     end
                 end
-            else
+            elsif soul
                 Game::LINK_PARTICLES.items.clear
             end
         end
