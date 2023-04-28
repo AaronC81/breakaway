@@ -16,8 +16,14 @@ module GosuGameJam4
 
             Text.new(
                 font: Fonts::CREDITS,
-                text: "Created by Aaron Christiansen\nFor Gosu Game Jam 4",
+                text: "Music: 'Concentration'\nby JSKNYC on OpenGameArt.org",
                 position: OZ::Point.new(20, HEIGHT - 65),
+                center: false
+            ).register(self)
+            Text.new(
+                font: Fonts::CREDITS,
+                text: "Created by Aaron Christiansen\nFor Gosu Game Jam 4",
+                position: OZ::Point.new(20, HEIGHT - 130),
                 center: false
             ).register(self)
 
@@ -53,7 +59,7 @@ module GosuGameJam4
                 ).register(self)
             end
 
-            Settings.new(position: OZ::Point.new(WIDTH - 320, HEIGHT - 120)).register(self)
+            Settings.new(position: OZ::Point.new(WIDTH - 320, HEIGHT - 180)).register(self)
         end
     end
 end

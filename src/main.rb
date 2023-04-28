@@ -145,6 +145,8 @@ module GosuGameJam4
         end
 
         def self.show_splash_screen(fade: true)
+            Music::MUSIC.stop
+
             show = ->do
                 Splash.new.register(MENU)
                 GAMEPLAY.enabled = false
@@ -166,6 +168,9 @@ module GosuGameJam4
             MENU.items.clear
             GAMEPLAY.enabled = true
             MENU.enabled = false
+
+            Music::MUSIC.volume = Settings.music_volume
+            Music::MUSIC.play(true)
         end
     end
 end
