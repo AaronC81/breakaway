@@ -69,6 +69,10 @@ module OrangeZest
                     iy += 1
                 end
                 points << p.clone
+
+                # I've seen a case where this function gets a bit stuck and will loop forever
+                # Add an "emergency stop" clause for that happening
+                return points if points.length >= 10000
             end
 
             points
