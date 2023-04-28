@@ -149,8 +149,8 @@ module GosuGameJam4
             # If there's no soul, we can't rejoin to one!
             return unless soul
 
-            # Make sure the soul isn't inside a wall or floor
-            return false if Game.solids.any? { |solid| solid.bounding_box.overlaps?(soul.bounding_box) }
+            # Make sure the soul isn't inside a wall
+            return false if Game::WALLS.items.any? { |solid| solid.bounding_box.overlaps?(soul.bounding_box) }
 
             # Check line-of-sight between us and soul
             line = center_position.line_to(soul.center_position)
