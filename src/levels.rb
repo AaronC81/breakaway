@@ -170,6 +170,25 @@ module GosuGameJam4
             Flag.register_new(x: 300, y: 260)
         end),
 
+        #===========
+        #
+        #    ====
+        #    =  =
+        #    =  =
+        # _._=  =_|_
+        Level.new(->do
+            Player.register_new(x: 500, y: 800)
+            Floor.register_new(x: 400, y: 800, width: 200)
+            Floor.register_new(x: 1000, y: 800, width: 200)
+
+            Barrier.register_new(x: 400, y: 100, orientation: :horizontal, length: 800)
+            Barrier.register_new(x: 600, y: 300 + 20, orientation: :vertical, length: 500)
+            Barrier.register_new(x: 1000, y: 300 + 20, orientation: :vertical, length: 500)
+            Barrier.register_new(x: 600, y: 300, orientation: :horizontal, length: 400)
+
+            Flag.register_new(x: 1100, y: 800)
+        end),
+
         #   |O
         #  OOO OOO_
         # _O     __
