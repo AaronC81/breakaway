@@ -59,6 +59,14 @@ module GosuGameJam4
                 ).register(self)
             end
 
+            if LEVELS.each_index.all? { |i| Save.level_beaten?(i) }
+                Text.new(
+                    font: Fonts::CREDITS,
+                    text: "Thank you for playing :)",
+                    position: OZ::Point.new(800, HEIGHT - 200),
+                ).register(self)
+            end
+
             Settings.new(position: OZ::Point.new(WIDTH - 320, HEIGHT - 180)).register(self)
         end
     end
