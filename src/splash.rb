@@ -34,7 +34,7 @@ module GosuGameJam4
             level_button_spacing = 30
             origin = OZ::Point.new(
                 (WIDTH - level_button_size * levels_per_row - level_button_spacing * (levels_per_row - 1)) / 2,
-                (HEIGHT - level_button_size * rows - level_button_spacing * (rows - 1)) / 2,
+                (HEIGHT - level_button_size * rows - level_button_spacing * (rows - 1)) / 2 + 50,
             )
             LEVELS.each.with_index do |_, i|
                 col = i % levels_per_row
