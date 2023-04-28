@@ -52,6 +52,10 @@ module GosuGameJam4
             attr_accessor :current_level
         end
 
+        def needs_cursor?
+            true
+        end
+
         def self.solids
             Game::FLOORS.items + Game::WALLS.items
         end

@@ -57,7 +57,7 @@ module GosuGameJam4
                     piece = @pieces[i]
                     i += 1
 
-                    piece.draw(position.x + dx * PIECE_SIZE, position.y + dy * PIECE_SIZE)
+                    piece.draw(position.x + dx * PIECE_SIZE, position.y + dy * PIECE_SIZE, position.z)
                 end
             end
         end

@@ -55,7 +55,7 @@ module GosuGameJam4
             @pieces.each.with_index do |piece, i|
                 case orientation
                 when :horizontal
-                    piece.draw(position.x + i * THICKNESS - THICKNESS / 2, position.y)
+                    piece.draw(position.x + i * THICKNESS - THICKNESS / 2, position.y, position.z)
                 when :vertical
                     piece.draw_rot(position.x - THICKNESS / 2, position.y + i * THICKNESS, position.z, 90, 1, 1)
                 else
