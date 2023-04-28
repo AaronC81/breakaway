@@ -192,6 +192,28 @@ module GosuGameJam4
             
             Floor.register_new(x: 980, y: 520, width: 600)
         end),
+
+        #   =  =  =  =  =
+        #   =  = OOO =  =
+        #   =  = =|= =  =
+        #   =  = === =  =  
+        #   =  =  =  =  = 
+        #   __.___________
+        Level.new(->do
+            Barrier.register_new(x: 700, y: 400, orientation: :vertical, length: 200)
+            Barrier.register_new(x: 900, y: 400, orientation: :vertical, length: 200)
+            Barrier.register_new(x: 600, y: 600 - 20, orientation: :horizontal, length: 400)
+            Wall.register_new(x: 700, y: 380, width: 200, height: 60)
+            Floor.register_new(x: 740, y: 550, width: 120)
+            Flag.register_new(x: 780, y: 550)
+
+            [100, 200, 300, 400, 500, 600, 1000, 1100, 1200, 1300, 1400, 1500].each do |x|
+                Barrier.register_new(x: x, y: 100, orientation: :vertical, length: 600)
+            end
+
+            Floor.register_new(x: 100, y: 800, width: 1400)
+            Player.register_new(x: 200, y: 800)
+        end),
     ]
 
     # Fill in indices
