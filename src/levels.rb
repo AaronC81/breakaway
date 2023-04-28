@@ -105,7 +105,7 @@ module GosuGameJam4
             Text.register_new(x: 800, y: 200, font: Fonts::TUTORIAL, text: "Barriers will kill you and your soul")
             Text.register_new(x: 800, y: 270, font: Fonts::TUTORIAL, text: "(You can still rejoin through barriers)")
 
-            Player.register_new(x: 300, y: 700)
+            Player.register_new(x: 300, y: 800)
             Floor.register_new(x: 200, y: 800, width: 1200)
             Barrier.register_new(x: 900, y: 600, length: 600, orientation: :horizontal)
             Floor.register_new(x: 1100, y: 400, width: 300)
@@ -128,6 +128,69 @@ module GosuGameJam4
 
             Floor.register_new(x: 300, y: 800, width: 1000)
             Flag.register_new(x: 1250, y: 800)
+        end),
+
+        #   _|_
+        #  =====
+        #
+        #
+        #   _._
+        Level.new(->do
+            Floor.register_new(x: 600, y: 300, width: 400)
+            Barrier.register_new(x: 500, y: 350, length: 600, orientation: :horizontal)
+            
+            Player.register_new(x: 800, y: 800)
+            Flag.register_new(x: 800, y: 300)
+            Floor.register_new(x: 600, y: 800, width: 400)
+        end),
+
+        # _|_  = __
+        # OOOOOO  __
+        #        __
+        #         __
+        #        __
+        # _.________
+        Level.new(->do
+            Player.register_new(x: 300, y: 800)
+            Floor.register_new(x: 200, y: 800, width: 1200)
+
+            Floor.register_new(x: 1000, y: 800 - 70 * 0, width: 160)
+            Floor.register_new(x: 1100, y: 800 - 70 * 1, width: 160)
+            Floor.register_new(x: 1000, y: 800 - 70 * 2, width: 160)
+            Floor.register_new(x: 1100, y: 800 - 70 * 3, width: 160)
+            Floor.register_new(x: 1000, y: 800 - 70 * 4, width: 160)
+            Floor.register_new(x: 1100, y: 800 - 70 * 5, width: 160)
+            Floor.register_new(x: 1000, y: 800 - 70 * 6, width: 160)
+            Floor.register_new(x: 1100, y: 800 - 70 * 7, width: 160)
+            Floor.register_new(x: 1000, y: 800 - 70 * 8, width: 160)
+            
+            Wall.register_new(x: -20, y: 260, width: 800, height: 60)
+            Barrier.register_new(x: 600, y: -20, orientation: :vertical, length: 280)
+
+            Flag.register_new(x: 300, y: 260)
+        end),
+
+        #   |O
+        #  OOO OOO_
+        # _O     __
+        # =O   =
+        # __.__=___
+        Level.new(->do
+            Player.register_new(x: 300, y: 800)
+            Floor.register_new(x: 200, y: 800, width: 1200)
+
+            Barrier.register_new(x: 900, y: 500, orientation: :vertical, length: 320)
+            Barrier.register_new(x: -20, y: 570, orientation: :horizontal, length: 560)
+            Wall.register_new(x: 240, y: 300, width: 60, height: 300)
+            Floor.register_new(x: 20, y: 500, width: 200)
+            
+            Flag.register_new(x: 400, y: 300)
+            Wall.register_new(x: 300, y: 300, width: 300, height: 60)
+            Wall.register_new(x: 600, y: -20, width: 60, height: 380)
+
+            Wall.register_new(x: 900, y: 200, width: 400, height: 60)
+            
+            Floor.register_new(x: 980, y: 520, width: 600)
         end),
     ]
 
